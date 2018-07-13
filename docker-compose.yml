@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  db:
+    image: microsoft/mssql-server-linux:latest
+    ports:
+      - "1433:1433"
+    environment:
+      - SA_PASSWORD=yourStrong(!)Password
+      - ACCEPT_EULA=Y
+  
+  vault:
+    build: .
+    depends_on: 
+      - db
+    ports:
+      - "8200:8200"
+    environment:
+      - VAULT_ADDR=http://localhost:8200
+    cap_add:
+      - IPC_LOCK
+    entrypoint: /usr/local/bin/runit.sh
