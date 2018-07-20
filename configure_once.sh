@@ -26,6 +26,6 @@ vault write database/roles/my-role \
   db_name=my-mssql-database \
   creation_statements="CREATE LOGIN [{{name}}] WITH PASSWORD = '{{password}}';\
   CREATE USER [{{name}}] FOR LOGIN [{{name}}];\
-  GRANT SELECT ON SCHEMA::dbo TO [{{name}}];" \
+  GRANT SELECT, INSERT, DELETE, UPDATE ON SCHEMA::dbo TO [{{name}}];" \
   default_ttl="2m" \
   max_ttl="24h"
